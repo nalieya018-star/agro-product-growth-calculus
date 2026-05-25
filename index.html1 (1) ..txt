@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agro-Bioscience Derivative Simulator | Oil Palm Ripening Analytics</title>
+    <!-- Tailwind CSS for modern responsive layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for interactive visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- KaTeX for crisp LaTeX-style formula typesetting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+    <!-- Google Fonts for professional typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Header Section -->
+    <header class="bg-emerald-950 text-white shadow-md border-b border-emerald-800 py-5 px-6 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="bg-amber-500 text-emerald-950 text-xs font-bold px-2 py-0.5 rounded-full tracking-wide">MALAYSIAN AGRO-TECH ADVISORY</span>
+                    <span class="bg-emerald-850 text-emerald-200 text-xs font-semibold px-2 py-0.5 rounded-full">SFP: Agro Product Technology</span>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-white flex items-center gap-2">
+                    Lipid Biosynthesis Derivative Model
+                </h1>
+                <p class="text-emerald-300 text-xs md:text-sm mt-1">
+                    Analyzing Oil Accumulation Kinetics in Tenera Mesocarp ($Elaeis\ guineensis$) during Days After Anthesis (DAA)
+                </p>
+            </div>
+            <div class="flex items-center gap-3 bg-emerald-900 p-3 rounded-lg border border-emerald-800 shadow-inner">
+                <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
+                <div class="text-xs text-slate-300">
+                    <span class="font-bold text-white block">Active Bioscience Engine</span>
+                    Calculates $f'(x)$ dynamics in real-time
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 flex-grow">
+        
+        <!-- LEFT PANEL: Bioscience & Mathematical Foundations (Columns: 5) -->
+        <section class="lg:col-span-5 flex flex-col gap-6">
+            
+            <!-- Bioscience Scenario Context Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="p-2.5 bg-emerald-50 text-emerald-700 rounded-lg">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-900">The Agro-Bioscience Problem</h2>
+                        <p class="text-xs text-slate-500">MPOB Research Guidelines & Harvester Optimization</p>
+                    </div>
+                </div>
+                
+                <p class="text-sm text-slate-600 leading-relaxed mb-3">
+                    In the Malaysian Palm Oil industry, determining the peak harvesting window is critical. Oil accumulation in the fruitlet mesocarp follows a <strong>sigmoidal logistic curve</strong>. 
+                </p>
+                <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                    Harvesting too early leaves valuable lipids unproduced. Harvesting too late leads to fruit-drop, increasing Free Fatty Acids (FFA) which degrades crude palm oil (CPO) quality. By applying the <strong>first derivative $f'(x)$</strong>, we pinpoint the exact date of peak lipid synthesis and model maturity limits.
+                </p>
+
+                <!-- Data Reference Link Accordion -->
+                <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-600">
+                    <span class="font-semibold text-slate-800 block mb-1">Empirical References:</span>
+                    <ul class="list-disc pl-4 space-y-1 text-slate-500">
+                        <li>
+                            <a href="https://jopr.mpob.gov.my/" target="_blank" class="text-emerald-700 hover:underline font-medium">Journal of Oil Palm Research (JOPR)</a>: Mesocarp lipid growth curves.
+                        </li>
+                        <li>
+                            <span class="font-medium text-slate-700">MPOB Technical Bulletin:</span> Tenera ripening timeline from 100 to 180 Days After Anthesis (DAA).
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Mathematical Formulation Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="p-2.5 bg-amber-50 text-amber-700 rounded-lg">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-900">Mathematical Modelling</h2>
+                        <p class="text-xs text-slate-500">Logistic Growth & Instantaneous Rate of Change</p>
+                    </div>
+                </div>
+
+                <!-- LaTeX Formulas -->
+                <div class="space-y-4 mb-6">
+                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <span class="text-xs font-semibold text-slate-500 block mb-2">Cumulative Lipid Content $f(x)$ (% of wet mesocarp)</span>
+                        <div class="text-center text-lg py-2">
+                            $$f(x) = \frac{L}{1 + e^{-k(x - x_0)}}$$
+                        </div>
+                    </div>
+                    
+                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <span class="text-xs font-semibold text-slate-500 block mb-2">Lipid Biosynthesis Rate $f'(x)$ (% per day)</span>
+                        <div class="text-center text-lg py-2">
+                            $$f'(x) = \frac{L \cdot k \cdot e^{-k(x - x_0)}}{(1 + e^{-k(x - x_0)})^2}$$
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parameters Definitions -->
+                <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wide mb-3">Model Parameters</h3>
+                <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                    <div class="p-2 bg-emerald-50 rounded border border-emerald-100">
+                        <span class="font-bold text-emerald-800 block">L</span>
+                        Max Capacity (%)
+                    </div>
+                    <div class="p-2 bg-amber-50 rounded border border-amber-100">
+                        <span class="font-bold text-amber-800 block">k</span>
+                        Growth Constant
+                    </div>
+                    <div class="p-2 bg-blue-50 rounded border border-blue-100">
+                        <span class="font-bold text-blue-800 block">x₀</span>
+                        Midpoint DAA
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Parameter Tuning Tool -->
+            <div class="bg-emerald-950 text-white rounded-xl shadow-md p-6">
+                <h2 class="text-base font-bold text-amber-400 mb-1 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    Real-time Scenario Variables
+                </h2>
+                <p class="text-xs text-emerald-300 mb-4">Adjust the biological potential parameters below:</p>
+
+                <div class="space-y-4 text-xs">
+                    <div>
+                        <div class="flex justify-between font-medium mb-1">
+                            <span>Max Oil Capacity ($L$)</span>
+                            <span class="text-amber-300" id="valL">50%</span>
+                        </div>
+                        <input type="range" id="paramL" min="35" max="65" step="1" value="50" class="w-full h-1.5 bg-emerald-850 rounded-lg appearance-none cursor-pointer accent-amber-400">
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between font-medium mb-1">
+                            <span>Biosynthesis Constant ($k$)</span>
+                            <span class="text-amber-300" id="valK">0.15</span>
+                        </div>
+                        <input type="range" id="paramK" min="0.08" max="0.25" step="0.01" value="0.15" class="w-full h-1.5 bg-emerald-850 rounded-lg appearance-none cursor-pointer accent-amber-400">
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between font-medium mb-1">
+                            <span>Inflection/Peak Point ($x_0$ DAA)</span>
+                            <span class="text-amber-300" id="valX0">140 DAA</span>
+                        </div>
+                        <input type="range" id="paramX0" min="120" max="155" step="1" value="140" class="w-full h-1.5 bg-emerald-850 rounded-lg appearance-none cursor-pointer accent-amber-400">
+                    </div>
+                </div>
+                
+                <button id="resetParams" class="mt-4 w-full bg-emerald-800 hover:bg-emerald-700 text-white text-xs py-2 px-4 rounded font-medium transition duration-150">
+                    Reset Model to Default MPOB Baseline
+                </button>
+            </div>
+        </section>
+
+        <!-- RIGHT PANEL: Dashboard, Chart, & Interactive Analytics (Columns: 7) -->
+        <section class="lg:col-span-7 flex flex-col gap-6">
+
+            <!-- Primary Interactive Chart Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col h-full min-h-[480px]">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-900 flex items-center gap-1.5">
+                            Oil Palm Ripening Interactive Curve
+                        </h2>
+                        <p class="text-xs text-slate-500">
+                            Click anywhere along the curves to perform derivative analysis
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-2 self-start">
+                        <div class="flex items-center gap-1.5 text-xs text-emerald-800 font-semibold bg-emerald-50 px-2 py-1 rounded">
+                            <span class="w-2.5 h-2.5 bg-[#10b981] rounded-full inline-block"></span>
+                            f(x) Oil Content
+                        </div>
+                        <div class="flex items-center gap-1.5 text-xs text-amber-800 font-semibold bg-amber-50 px-2 py-1 rounded">
+                            <span class="w-2.5 h-2.5 bg-[#f59e0b] rounded-full inline-block"></span>
+                            f'(x) Acc. Rate
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart container (relative for resizing) -->
+                <div class="relative flex-grow min-h-[300px]">
+                    <canvas id="growthChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Dynamic Interactive Analytics Box & Time-lapse Sync -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                
+                <!-- Fruit Visualizer & Stage Indicator (Columns: 4) -->
+                <div class="md:col-span-5 bg-white border border-slate-200 rounded-xl p-5 flex flex-col items-center justify-between text-center">
+                    <div class="w-full">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Physiological Stage</h3>
+                        <span id="stageBadge" class="inline-block bg-slate-100 text-slate-800 text-xs font-bold px-3 py-1 rounded-full border border-slate-200">
+                            No Point Selected
+                        </span>
+                    </div>
+
+                    <!-- Dynamic SVG Palm Oil Fruitlet -->
+                    <div class="my-4 relative w-24 h-32 flex items-center justify-center">
+                        <svg viewBox="0 0 100 130" class="w-full h-full drop-shadow-md">
+                            <!-- Fruitlet body -->
+                            <path id="fruitletPath" d="M50,10 C20,30 10,70 15,100 C20,120 40,125 50,125 C60,125 80,120 85,100 C90,70 80,30 50,10 Z" fill="#1a0c2e" transition="fill 0.4s ease"></path>
+                            <!-- Fruitlet base/pedicel -->
+                            <path d="M40,122 L50,130 L60,122 Z" fill="#4a3b1a"></path>
+                            <!-- Highlights/Texture -->
+                            <ellipse cx="50" cy="40" rx="3" ry="15" fill="#ffffff" opacity="0.1" transform="rotate(-15 50 40)"></ellipse>
+                            <ellipse cx="35" cy="80" rx="4" ry="10" fill="#ffffff" opacity="0.08"></ellipse>
+                        </svg>
+                        <!-- Floating DAA tag -->
+                        <div class="absolute -bottom-1 bg-slate-900 text-white font-bold text-xs px-2 py-0.5 rounded shadow">
+                            <span id="fruitletDAA">--</span> DAA
+                        </div>
+                    </div>
+
+                    <button id="btnAnimate" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs py-2.5 px-3 rounded-lg flex items-center justify-center gap-1.5 transition duration-150">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                        Play Anthesis Time-Lapse
+                    </button>
+                </div>
+
+                <!-- Mathematical & Crop Analytics Panel (Columns: 7) -->
+                <div class="md:col-span-7 bg-white border border-slate-200 rounded-xl p-5 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">
+                            Interactive Point Analytics
+                        </h3>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div class="bg-emerald-50 p-3 rounded-lg border border-emerald-100">
+                                <span class="text-xs font-semibold text-emerald-800 block mb-1">Cumulative Oil Content</span>
+                                <span class="text-2xl font-bold text-emerald-950" id="outFx">-- %</span>
+                                <span class="text-[10px] text-emerald-600 block mt-0.5 font-medium">$f(x)$ on wet mesocarp</span>
+                            </div>
+
+                            <div class="bg-amber-50 p-3 rounded-lg border border-amber-100">
+                                <span class="text-xs font-semibold text-amber-800 block mb-1">Instantaneous Acc. Rate</span>
+                                <span class="text-2xl font-bold text-amber-950" id="outFpx">-- %/day</span>
+                                <span class="text-[10px] text-amber-600 block mt-0.5 font-medium">$f'(x)$ derivative speed</span>
+                            </div>
+                        </div>
+
+                        <!-- Layman Explainer Area -->
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 text-xs">
+                            <span class="font-bold text-slate-700 block mb-1">Agronomist Interpretation:</span>
+                            <p id="laymanText" class="text-slate-600 leading-relaxed italic">
+                                Please select a data point on the ripening curve above to inspect structural lipid metabolism, yield forecast, and harvest viability.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 text-xs text-center py-4 px-6 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <span>Developmental Agro Product Technology Framework &copy; 2026</span>
+            <div class="flex items-center gap-2">
+                <span>Created for Agro Product Technology Undergraduates in Malaysia</span>
+                <span class="inline-block w-1.5 h-1.5 bg-amber-400 rounded-full"></span>
+                <span>Active Model: 2.5-Logistic</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- App Logic Engine -->
+    <script>
+        // Initialization & DOM Selectors
+        let chart;
+        let animationInterval;
+        
+        // Element Hooks
+        const paramL = document.getElementById('paramL');
+        const paramK = document.getElementById('paramK');
+        const paramX0 = document.getElementById('paramX0');
+
+        const valL = document.getElementById('valL');
+        const valK = document.getElementById('valK');
+        const valX0 = document.getElementById('valX0');
+
+        const outFx = document.getElementById('outFx');
+        const outFpx = document.getElementById('outFpx');
+        const laymanText = document.getElementById('laymanText');
+        const stageBadge = document.getElementById('stageBadge');
+        const fruitletPath = document.getElementById('fruitletPath');
+        const fruitletDAA = document.getElementById('fruitletDAA');
+        
+        // Mathematical Logic Functions
+        function getModelParams() {
+            return {
+                L: parseFloat(paramL.value),
+                k: parseFloat(paramK.value),
+                x0: parseFloat(paramX0.value)
+            };
+        }
+
+        // Logistic Cumulative Function: f(x)
+        function f(x, L, k, x0) {
+            return L / (1 + Math.exp(-k * (x - x0)));
+        }
+
+        // Analytical First Derivative Function: f'(x)
+        function fPrime(x, L, k, x0) {
+            const expTerm = Math.exp(-k * (x - x0));
+            const denominator = Math.pow(1 + expTerm, 2);
+            return (L * k * expTerm) / denominator;
+        }
+
+        // Generate entire range of data from x = 100 to 180 DAA
+        function generateDataRange() {
+            const labels = [];
+            const fData = [];
+            const fPrimeData = [];
+            const { L, k, x0 } = getModelParams();
+
+            for (let x = 100; x <= 180; x++) {
+                labels.push(x);
+                fData.push(f(x, L, k, x0).toFixed(2));
+                fPrimeData.push(fPrime(x, L, k, x0).toFixed(3));
+            }
+            return { labels, fData, fPrimeData };
+        }
+
+        // Update Slider Numerical Outputs
+        function updateSliderLabels() {
+            valL.textContent = `${paramL.value}%`;
+            valK.textContent = paramK.value;
+            valX0.textContent = `${paramX0.value} DAA`;
+        }
+
+        // Dynamically update the visual rendering of the fruitlet SVG
+        function updateFruitletVisual(daa, pct) {
+            fruitletDAA.textContent = daa;
+            
+            // Color Interpolation for Malaysian Palm Oil Fruit (Deep Violet-Black -> Orange-Red -> Orange-Yellow)
+            let fillColor;
+            if (daa < 125) {
+                // Unripe / Lag Stage (Deep Black/Purple)
+                fillColor = '#1e0f35';
+            } else if (daa >= 125 && daa < 145) {
+                // Turning / Accelerated Stage (Reddish Black/Brown)
+                fillColor = '#5c171e';
+            } else if (daa >= 145 && daa < 160) {
+                // Ripe / High Biosynthesis Stage (Fiery Red-Orange)
+                fillColor = '#d33611';
+            } else {
+                // Fully Mature / Plateau Stage (Deep Vibrant Orange-Yellow base)
+                fillColor = '#e65c00';
+            }
+            
+            fruitletPath.setAttribute('fill', fillColor);
+        }
+
+        // Stage Assessment & Layman Agronomic Explanations
+        function getStageAnalysis(x, fx, fpx) {
+            const { L, k, x0 } = getModelParams();
+            let badgeClass = '';
+            let stageName = '';
+            let description = '';
+
+            if (x < 120) {
+                stageName = "Unripe / Lag Phase";
+                badgeClass = "bg-purple-100 text-purple-800 border-purple-200";
+                description = `At ${x} Days After Anthesis (DAA), the mesocarp is in early development. Lipid synthesis rate is extremely low (${fpx}% per day) because energy is channeled into core cellular structure development. Total oil content is tiny (${fx}%). Processing this bunch yields almost zero oil. DO NOT HARVEST.`;
+            } 
+            else if (x >= 120 && x < (x0 - 5)) {
+                stageName = "Acceleration Phase";
+                badgeClass = "bg-blue-100 text-blue-800 border-blue-200";
+                description = `Between 120 DAA and ${Math.round(x0 - 5)} DAA, enzymes responsible for fatty acid synthesis (e.g., SAD, FATA) are heavily activated. Cumulative oil is at ${fx}%, accumulating aggressively at ${fpx}% daily. Harvesting now results in sub-optimal oil extraction and lower commercial grade.`;
+            } 
+            else if (x >= (x0 - 5) && x <= (x0 + 5)) {
+                stageName = "Peak Synthesis Window";
+                badgeClass = "bg-amber-100 text-amber-800 border-amber-200";
+                description = `Peak biosynthesis rate achieved! Currently accumulating lipid at its near-maximum rate of ${fpx}% per day. The mesocarp cells are actively packaging lipids into oil droplets. Harvesting at exactly ${x} DAA is not recommended as substantial synthesis capacity remains.`;
+            } 
+            else if (x > (x0 + 5) && x < 160) {
+                stageName = "Deceleration Phase";
+                badgeClass = "bg-emerald-100 text-emerald-800 border-emerald-200";
+                description = `Oil synthesis rate starts tapering down to ${fpx}% per day as mesocarp cells run out of storage space. However, cumulative oil has built up nicely to ${fx}%. Harvesting is approaching, but waiting a bit longer will yield more extractable CPO.`;
+            } 
+            else {
+                stageName = "Commercial Plateau / Ideal Harvest";
+                badgeClass = "bg-rose-100 text-rose-800 border-rose-200";
+                description = `Optimal harvesting window! At ${x} DAA, the rate of synthesis has bottomed out to ${fpx}% per day because mesocarp cells are saturated. Cumulative oil has plateaued at ${fx}%. Harvesting must proceed immediately to prevent over-ripening and spikes in Free Fatty Acid (FFA) values.`;
+            }
+
+            return { stageName, badgeClass, description };
+        }
+
+        // Handle Dynamic Interactivity on Specific Data Points
+        function inspectPoint(daa) {
+            const { L, k, x0 } = getModelParams();
+            const calculatedFx = f(daa, L, k, x0).toFixed(2);
+            const calculatedFpx = fPrime(daa, L, k, x0).toFixed(3);
+
+            // Populate Output Metrics
+            outFx.textContent = `${calculatedFx}%`;
+            outFpx.textContent = `${calculatedFpx}%/day`;
+
+            // Dynamic Styling Updates
+            const analysis = getStageAnalysis(daa, calculatedFx, calculatedFpx);
+            stageBadge.className = `inline-block text-xs font-bold px-3 py-1 rounded-full border ${analysis.badgeClass}`;
+            stageBadge.textContent = analysis.stageName;
+            laymanText.innerHTML = analysis.description;
+
+            // Visual Update to SVG Fruit
+            updateFruitletVisual(daa, parseFloat(calculatedFx));
+
+            // Custom Chart Reticle highlight
+            if (chart) {
+                const chartPoints = chart.data.labels;
+                const pointIndex = chartPoints.indexOf(daa);
+                if (pointIndex !== -1) {
+                    chart.setActiveElements([{
+                        datasetIndex: 0,
+                        index: pointIndex
+                    }]);
+                    chart.update();
+                }
+            }
+        }
+
+        // Initialize and Configure Interactive Chart.js
+        function buildChart() {
+            const ctx = document.getElementById('growthChart').getContext('2d');
+            const dataSets = generateDataRange();
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dataSets.labels,
+                    datasets: [
+                        {
+                            label: 'Cumulative Oil Content f(x) (%)',
+                            data: dataSets.fData,
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.08)',
+                            yAxisID: 'y',
+                            borderWidth: 3,
+                            pointRadius: 2,
+                            pointHoverRadius: 8,
+                            fill: true,
+                            tension: 0.1
+                        },
+                        {
+                            label: "Daily Biosynthesis Rate f'(x) (%/day)",
+                            data: dataSets.fPrimeData,
+                            borderColor: '#f59e0b',
+                            backgroundColor: 'rgba(245, 158, 11, 0.03)',
+                            yAxisID: 'y1',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            pointRadius: 2,
+                            pointHoverRadius: 8,
+                            tension: 0.1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    onClick: (event, activeElements) => {
+                        if (activeElements.length > 0) {
+                            const index = activeElements[0].index;
+                            const daa = chart.data.labels[index];
+                            inspectPoint(daa);
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false // Using custom legend in UI header
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y + (context.datasetIndex === 0 ? '%' : '%/day');
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Days After Anthesis (DAA)',
+                                color: '#475569',
+                                font: {
+                                    weight: 'bold',
+                                    size: 11
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(148, 163, 184, 0.1)'
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Cumulative Oil Content f(x) (% mesocarp)',
+                                color: '#10b981',
+                                font: {
+                                    weight: 'bold',
+                                    size: 11
+                                }
+                            },
+                            min: 0,
+                            max: 70,
+                            grid: {
+                                color: 'rgba(148, 163, 184, 0.1)'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: "Rate of Change f'(x) (%/day)",
+                                color: '#f59e0b',
+                                font: {
+                                    weight: 'bold',
+                                    size: 11
+                                }
+                            },
+                            min: 0,
+                            max: 3,
+                            grid: {
+                                drawOnChartArea: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Live Parameter Manipulation Handlers
+        function onParameterChange() {
+            updateSliderLabels();
+            const dataSets = generateDataRange();
+            chart.data.datasets[0].data = dataSets.fData;
+            chart.data.datasets[1].data = dataSets.fPrimeData;
+            chart.update('none'); // Update without full rebuild
+
+            // Recalculate currently highlighted DAA or default to 140 DAA
+            const selectedDaa = parseInt(fruitletDAA.textContent) || 140;
+            inspectPoint(selectedDaa);
+        }
+
+        // Setup Event Listeners
+        paramL.addEventListener('input', onParameterChange);
+        paramK.addEventListener('input', onParameterChange);
+        paramX0.addEventListener('input', onParameterChange);
+
+        // Reset Parameters Event
+        document.getElementById('resetParams').addEventListener('click', () => {
+            paramL.value = 50;
+            paramK.value = 0.15;
+            paramX0.value = 140;
+            onParameterChange();
+        });
+
+        // Time-lapse Anthesis Sequence Animation
+        document.getElementById('btnAnimate').addEventListener('click', () => {
+            clearInterval(animationInterval);
+            let currentDaa = 100;
+            inspectPoint(currentDaa);
+
+            animationInterval = setInterval(() => {
+                currentDaa++;
+                inspectPoint(currentDaa);
+
+                if (currentDaa >= 180) {
+                    clearInterval(animationInterval);
+                }
+            }, 80); // Quick incremental step animation
+        });
+
+        // Window On-load initialization
+        window.onload = function() {
+            buildChart();
+            updateSliderLabels();
+            inspectPoint(140); // Standard midpoint DAA
+        };
+    </script>
+</body>
+</html>
